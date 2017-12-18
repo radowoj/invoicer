@@ -17,8 +17,6 @@ class IssueMargin extends AbstractRequest
 
     protected $invoice = null;
 
-    protected $keyName = 'faktura';
-
     public function __construct(Margin $invoice)
     {
         $this->invoice = $invoice;
@@ -46,6 +44,10 @@ class IssueMargin extends AbstractRequest
         if ($this->invoice->hasExchangeRate()) {
             $body['invoice']['exchange_kind'] = 'own';
             $body['invoice']['exchange_currency_rate'] = $this->invoice->getExchangeRate();
+        }
+
+        if ($this->invoice->hasCurrency()) {
+            $body['invoice']['currency'] = $this->invoice->getCurrency();
         }
 
         $body['invoice'] = array_merge($body['invoice'], $this->getSeller());

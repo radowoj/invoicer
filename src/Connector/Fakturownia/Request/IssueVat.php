@@ -3,8 +3,6 @@
 namespace Radowoj\Invoicer\Connector\Fakturownia\Request;
 
 
-use Money\Currencies\ISOCurrencies;
-use Money\Formatter\DecimalMoneyFormatter;
 use Radowoj\Invoicer\Connector\Fakturownia\AbstractRequest;
 use Radowoj\Invoicer\Invoice\Vat;
 
@@ -16,8 +14,6 @@ class IssueVat extends AbstractRequest
     protected $endpoint = 'http://__USERNAME__.fakturownia.pl/invoices.json';
 
     protected $invoice = null;
-
-    protected $keyName = 'faktura';
 
     public function __construct(Vat $invoice)
     {
@@ -38,6 +34,19 @@ class IssueVat extends AbstractRequest
                 'description' => $this->invoice->getDescription(),
             ]
         ];
+
+        if ($this->invoice->hasForeignCurrency()) {
+            $body['invoice']["exchange_currency"] = $this->invoice->getForeignCurrency();
+        }
+
+        if ($this->invoice->hasExchangeRate()) {
+            $body['invoice']['exchange_kind'] = 'own';
+            $body['invoice']['exchange_currency_rate'] = $this->invoice->getExchangeRate();
+        }
+
+        if ($this->invoice->hasCurrency()) {
+            $body['invoice']['currency'] = $this->invoice->getCurrency();
+        }
 
         $body['invoice'] = array_merge($body['invoice'], $this->getSeller());
         $body['invoice'] = array_merge($body['invoice'], $this->getBuyer());

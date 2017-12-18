@@ -47,6 +47,7 @@ $positions->add($position);
 
 $currencyInvoice = new \Radowoj\Invoicer\Invoice\Vat($seller, $buyer, $positions);
 $currencyInvoice->setPlaceOfIssue('Wąchock');
+$currencyInvoice->setCurrency('USD');
 $currencyInvoice->setForeignCurrency('EUR');
 $currencyInvoice->setExchangeRate(2.00);
 

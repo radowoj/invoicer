@@ -47,24 +47,25 @@ abstract class AbstractInvoice implements InvoiceInterface
      */
     protected $placeOfIssue = null;
 
-
     /**
      * @var string
      */
     protected $languageCode = '';
 
+    /**
+     * @var string
+     */
+    protected $currency = null;
 
     /**
      * @var string
      */
     protected $foreignCurrency = null;
 
-
     /**
      * @var double
      */
     protected $exchangeRate = null;
-
 
     /**
      * @var string
@@ -119,6 +120,28 @@ abstract class AbstractInvoice implements InvoiceInterface
     }
 
 
+    /**
+     * @return string
+     */
+    public function getCurrency(): string
+    {
+        if (is_null($this->currency)) {
+            throw new Exception('Currency has not been set');
+        }
+
+        return $this->currency;
+    }
+
+
+    /**
+     * @param string $currency
+     * @return AbstractInvoice
+     */
+    public function setCurrency(string $currency): InvoiceInterface
+    {
+        $this->currency = $currency;
+        return $this;
+    }
 
 
     /**
@@ -131,6 +154,7 @@ abstract class AbstractInvoice implements InvoiceInterface
         }
         return $this->placeOfIssue;
     }
+
 
     /**
      * @param string $placeOfIssue
@@ -253,6 +277,7 @@ abstract class AbstractInvoice implements InvoiceInterface
         return $this;
     }
 
+
     /**
      * @return CollectionInterface
      */
@@ -295,7 +320,6 @@ abstract class AbstractInvoice implements InvoiceInterface
     }
 
 
-
     /**
      * @throws Exception when positions object is not set
      */
@@ -317,6 +341,7 @@ abstract class AbstractInvoice implements InvoiceInterface
         }
         return $this->exchangeRate;
     }
+
 
     /**
      * @param float $exchangeRate
@@ -341,6 +366,15 @@ abstract class AbstractInvoice implements InvoiceInterface
     /**
      * @return bool
      */
+    public function hasCurrency()
+    {
+        return !is_null($this->currency);
+    }
+
+
+    /**
+     * @return bool
+     */
     public function hasExchangeRate()
     {
         return !is_null($this->exchangeRate);
@@ -355,6 +389,7 @@ abstract class AbstractInvoice implements InvoiceInterface
         return $this->description;
     }
 
+
     /**
      * @param string $description
      * @return AbstractInvoice
@@ -364,8 +399,6 @@ abstract class AbstractInvoice implements InvoiceInterface
         $this->description = $description;
         return $this;
     }
-
-
 
 }
 
