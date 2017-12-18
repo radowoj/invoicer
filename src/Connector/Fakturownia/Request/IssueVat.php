@@ -48,6 +48,10 @@ class IssueVat extends AbstractRequest
             $body['invoice']['currency'] = $this->invoice->getCurrency();
         }
 
+        if ($this->invoice->hasLanguageCode()) {
+            $body['invoice']['lang'] = $this->invoice->getLanguageCode();
+        }
+
         $body['invoice'] = array_merge($body['invoice'], $this->getSeller());
         $body['invoice'] = array_merge($body['invoice'], $this->getBuyer());
 

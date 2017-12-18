@@ -98,6 +98,15 @@ abstract class AbstractInvoice implements InvoiceInterface
 
 
     /**
+     * @return bool
+     */
+    public function hasLanguageCode() : bool
+    {
+        return !is_null($this->languageCode);
+    }
+
+
+    /**
      * @return string
      */
     public function getForeignCurrency(): string

@@ -50,6 +50,7 @@ $currencyInvoice->setPlaceOfIssue('Wąchock');
 $currencyInvoice->setCurrency('USD');
 $currencyInvoice->setForeignCurrency('EUR');
 $currencyInvoice->setExchangeRate(2.00);
+$currencyInvoice->setLanguageCode('DE');
 
 $fakturowniaConnector = new \Radowoj\Invoicer\Connector\Fakturownia\Connector([]);
 $fakturowniaConnector->setToken($config['fakturownia']['token'])

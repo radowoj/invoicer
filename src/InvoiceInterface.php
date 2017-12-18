@@ -1,79 +1,74 @@
 <?php
-
-declare(strict_types=1);
+/**
+ * @author Radosław Wojtyczka <radoslaw.wojtyczka@gmail.com>
+ */
 
 namespace Radowoj\Invoicer;
 
 use DateTime;
-use Radowoj\Invoicer\Invoice\Party\SellerInterface;
 use Radowoj\Invoicer\Invoice\Party\BuyerInterface;
-use Radowoj\Invoicer\Invoice\Positions\CollectionInterface;
+use Radowoj\Invoicer\Invoice\Party\SellerInterface;
 use Radowoj\Invoicer\Invoice\PositionInterface;
+use Radowoj\Invoicer\Invoice\Positions\Collection;
+use Radowoj\Invoicer\Invoice\Positions\CollectionInterface;
 
 interface InvoiceInterface
 {
-    /**
-     * @param string $format date format
-     * @return string issue date of the invoice
-     */
-    public function getInvoiceDate() : DateTime;
+    public function getLanguageCode(): string;
 
+    public function setLanguageCode(string $languageCode);
 
-    /**
-     * @param string $format date format
-     * @return string date of transaction related to this invoice
-     */
-    public function getTransactionDate() : DateTime;
+    public function hasLanguageCode(): bool;
 
+    public function getForeignCurrency(): string;
 
-    /**
-     * @param SellerInterface $seller
-     * @return InvoiceInterface fluent interface
-     */
-    public function setSeller(SellerInterface $seller) : InvoiceInterface;
+    public function setForeignCurrency(string $foreignCurrency): InvoiceInterface;
 
+    public function getCurrency(): string;
 
-    /**
-     * @return SellerInterface
-     */
-    public function getSeller() : SellerInterface;
+    public function setCurrency(string $currency): InvoiceInterface;
 
+    public function getPlaceOfIssue(): string;
 
-    /**
-     * @param BuyerInterface $buyer
-     * @return InvoiceInterface fluent interface
-     */
-    public function setBuyer(BuyerInterface $buyer) : InvoiceInterface;
+    public function setPlaceOfIssue(string $placeOfIssue): InvoiceInterface;
 
+    public function setInvoiceDate(DateTime $invoiceDate): InvoiceInterface;
 
-    /**
-     * @return BuyerInterface
-     */
-    public function getBuyer() : BuyerInterface;
+    public function getInvoiceDate(): DateTime;
 
+    public function setTransactionDate(DateTime $transactionDate): InvoiceInterface;
 
-    /**
-     * @return CollectionInterface
-     */
-    public function getPositions() : CollectionInterface;
+    public function getTransactionDate(): DateTime;
 
+    public function setSeller(SellerInterface $seller): InvoiceInterface;
 
-    /**
-     * @param PositionInterface $position
-     * @return InvoiceInterface fluent interface
-     */
-    public function addPosition(PositionInterface $position) : InvoiceInterface;
+    public function getSeller(): SellerInterface;
 
+    public function setBuyer(BuyerInterface $buyer): InvoiceInterface;
 
-    /**
-     * @return float net invoice total
-     */
-    public function getInvoiceNetTotal() : string;
+    public function getBuyer(): BuyerInterface;
 
+    public function setPositions(Collection $positions): InvoiceInterface;
 
-    /**
-     * @return float gross invoice total
-     */
-    public function getInvoiceGrossTotal() : string;
+    public function getPositions(): CollectionInterface;
 
+    public function addPosition(PositionInterface $position): InvoiceInterface;
+
+    public function getInvoiceNetTotal(): string;
+
+    public function getInvoiceGrossTotal(): string;
+
+    public function getExchangeRate(): float;
+
+    public function setExchangeRate(float $exchangeRate): InvoiceInterface;
+
+    public function hasForeignCurrency();
+
+    public function hasCurrency();
+
+    public function hasExchangeRate();
+
+    public function getDescription(): string;
+
+    public function setDescription(string $description): InvoiceInterface;
 }
