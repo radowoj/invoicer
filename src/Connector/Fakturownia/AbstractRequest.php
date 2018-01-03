@@ -7,6 +7,7 @@ namespace Radowoj\Invoicer\Connector\Fakturownia;
 use Exception;
 use Radowoj\Invoicer\Connector\AbstractConnectorRequest;
 use Radowoj\Invoicer\Connector\ConnectorResponseInterface;
+use Radowoj\Invoicer\Invoice\Party\BuyerInterface;
 
 abstract class AbstractRequest extends AbstractConnectorRequest
 {
@@ -104,13 +105,33 @@ abstract class AbstractRequest extends AbstractConnectorRequest
     protected function getBuyer()
     {
         $buyer = $this->invoice->getBuyer();
+
+        $buyerNames = [
+            $buyer->getPersonName()
+        ];
+
+        if ($buyer->hasCompanyName()) {
+            $buyerNames[] = $buyer->getCompanyName();
+        }
+
         return [
-            "buyer_name" => $buyer->hasCompanyName() ? $buyer->getCompanyName() : $buyer->getPersonName(),
+            "buyer_name" => implode("\n", $buyerNames),
             "buyer_tax_no" => $buyer->hasTaxIdentificationNumber() ? preg_replace('/[^0-9]/', '', $buyer->getTaxIdentificationNumber()) : '',
             "buyer_post_code" => $buyer->getPostCode(),
             "buyer_city" => $buyer->getCity(),
             "buyer_street" => $buyer->getStreet(),
             "buyer_country" => $buyer->getCountry(),
+            "buyer_company" => (int)($buyer->hasTaxIdentificationNumber() || $buyer->hasCompanyName()),
+        ];
+    }
+
+
+    protected function getBuyerFirstAndLastName(BuyerInterface $buyer)
+    {
+        $buyerNames = preg_split('/\s/', $buyer->getPersonName());
+        return [
+            'buyer_first_name' => array_shift($buyerNames),
+            'buyer_last_name' => implode(' ', $buyerNames)
         ];
     }
 

@@ -241,7 +241,7 @@ class AbstractPartyTest extends TestCase
         $this->assertSame(
             $this->testProperties['personName'],
             $this->object->getPersonName(),
-            'Tax identification number is invalid'
+            'Person name'
         );
 
         $this->assertSame(
@@ -267,6 +267,55 @@ class AbstractPartyTest extends TestCase
             $this->object->getCountry(),
             'Country is invalid'
         );
+    }
+
+
+    public function testPositiveHasTaxIdentificationNumber()
+    {
+        $this->object = $this->getMockForAbstractClass(
+            AbstractParty::class,
+            [$this->testProperties]
+        );
+
+        $this->assertTrue(true, $this->object->hasTaxIdentificationNumber());
+    }
+
+
+    public function testNegativeHasTaxIdentificationNumber()
+    {
+        $testPropertiesWithoutTaxId = $this->testProperties;
+        $testPropertiesWithoutTaxId['taxIdentificationNumber'] = '';
+
+        $this->object = $this->getMockForAbstractClass(
+            AbstractParty::class,
+            [$testPropertiesWithoutTaxId]
+        );
+
+        $this->assertFalse(false, $this->object->hasTaxIdentificationNumber());
+    }
+
+    public function testPositiveHasCompanyName()
+    {
+        $this->object = $this->getMockForAbstractClass(
+            AbstractParty::class,
+            [$this->testProperties]
+        );
+
+        $this->assertTrue(true, $this->object->hasCompanyName());
+    }
+
+
+    public function testNegativeHasCompanyName()
+    {
+        $testPropertiesWithoutCompanyName = $this->testProperties;
+        $testPropertiesWithoutCompanyName['companyName'] = '';
+
+        $this->object = $this->getMockForAbstractClass(
+            AbstractParty::class,
+            [$testPropertiesWithoutCompanyName]
+        );
+
+        $this->assertFalse(false, $this->object->hasCompanyName());
     }
 
 

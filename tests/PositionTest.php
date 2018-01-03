@@ -169,4 +169,50 @@ class PositionTest extends TestCase
         $position->setTaxRatePercent(-1);
     }
 
+
+    public function testForeignUnit()
+    {
+        $position = new Position();
+        $position->setForeignUnit('someUnit');
+        $this->assertSame('someUnit', $position->getForeignUnit());
+    }
+
+
+    public function testForeignName()
+    {
+        $position = new Position();
+        $position->setForeignName('someName');
+        $this->assertSame('someName', $position->getForeignName());
+    }
+
+
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Price has already been set
+     */
+    public function testExceptionOnSettingAlreadySetPrice()
+    {
+        $position = new Position();
+        $position->setNetUnitPrice(12.34);
+        $position->setNetUnitPrice(12.34);
+    }
+
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Price has not been set
+     */
+    public function testExceptionOnGettingNotSetPrice()
+    {
+        $position = new Position();
+        $position->getNetUnitPrice();
+    }
+
+
+    public function testGetTaxRateDecimal()
+    {
+        $position = new Position();
+        $position->setTaxRatePercent(12);
+        $this->assertSame('0.12', (string)$position->getTaxRateDecimal());
+    }
+
 }

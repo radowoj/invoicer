@@ -20,8 +20,8 @@ $seller = new Seller([
 ]);
 
 $buyer = new Buyer([
-//    'companyName' => 'Some Company',
-//    'taxIdentificationNumber' => '5824502734',
+    'companyName' => 'Some Company',
+    'taxIdentificationNumber' => '5824502734',
     'personName' => 'Gżdyl Grząślik',
     'street' => 'Brukowa 432/1',
     'postCode' => '54-321',
@@ -48,18 +48,18 @@ $position->setName('Pozycja faktury za sto osiem brutto')
     ->setUnit('szt.');
 $positions->add($position);
 
-$domestic = new \Radowoj\Invoicer\Invoice\Vat($seller, $buyer, $positions);
-$domestic->setPlaceOfIssue('Wąchock');
-
+$vat = new \Radowoj\Invoicer\Invoice\Vat($seller, $buyer, $positions);
+$vat->setPlaceOfIssue('Wąchock');
+$vat->setLanguageCode('EN');
 
 $fakturowniaConnector = new \Radowoj\Invoicer\Connector\Fakturownia\Connector([]);
 $fakturowniaConnector->setToken($config['fakturownia']['token'])
     ->setUsername($config['fakturownia']['username']);
-$response = $fakturowniaConnector->issue($domestic);
+$response = $fakturowniaConnector->issue($vat);
 
 
-echo "Całkowita cena netto: {$domestic->getInvoiceNetTotal()}\n";
-echo "Całkowita cena brutto: {$domestic->getInvoiceGrossTotal()}\n";
+echo "Całkowita cena netto: {$vat->getInvoiceNetTotal()}\n";
+echo "Całkowita cena brutto: {$vat->getInvoiceGrossTotal()}\n";
 echo "Kod odpowiedzi API: {$response->getStatusCode()}\n";
 echo "Odpowiedź API: {$response->getStatusString()}\n";
 echo "Identyfikator zasobu: {$response->getResourceIdentifier()}\n";

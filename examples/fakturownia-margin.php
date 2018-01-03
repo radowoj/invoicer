@@ -51,6 +51,7 @@ $marginInvoice = new \Radowoj\Invoicer\Invoice\Margin($seller, $buyer, $position
 $marginInvoice->setPlaceOfIssue('Wąchock');
 $marginInvoice->setTransactionDate(new DateTime('2017-12-01'));
 $marginInvoice->setDescription('Lorem ipsum dolor');
+$marginInvoice->setLanguageCode('EN');
 
 $fakturowniaConnector = new \Radowoj\Invoicer\Connector\Fakturownia\Connector([]);
 $fakturowniaConnector->setToken($config['fakturownia']['token'])
