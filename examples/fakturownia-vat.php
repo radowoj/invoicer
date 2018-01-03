@@ -50,7 +50,7 @@ $positions->add($position);
 
 $vat = new \Radowoj\Invoicer\Invoice\Vat($seller, $buyer, $positions);
 $vat->setPlaceOfIssue('Wąchock');
-$vat->setLanguageCode('EN');
+//$vat->setLanguageCode('PL');
 
 $fakturowniaConnector = new \Radowoj\Invoicer\Connector\Fakturownia\Connector([]);
 $fakturowniaConnector->setToken($config['fakturownia']['token'])

@@ -50,6 +50,7 @@ $positions->add($position);
 $marginInvoice = new \Radowoj\Invoicer\Invoice\Margin($seller, $buyer, $positions);
 $marginInvoice->setPlaceOfIssue('Wąchock');
 $marginInvoice->setTransactionDate(new DateTime('2017-12-01'));
+$marginInvoice->setDueDate(new DateTime('2018-01-05'));
 $marginInvoice->setDescription('Lorem ipsum dolor');
 $marginInvoice->setLanguageCode('EN');
 

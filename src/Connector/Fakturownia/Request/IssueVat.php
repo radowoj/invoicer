@@ -32,6 +32,8 @@ class IssueVat extends AbstractRequest
                 "sell_date" => $this->invoice->getTransactionDate()->format("Y-m-d"),
                 "positions" => $this->getInvoicePositions(),
                 'description' => $this->invoice->getDescription(),
+                'payment_to_kind' => 'other_date',
+                'payment_to' => $this->invoice->getDueDate()->format("Y-m-d"),
             ]
         ];
 

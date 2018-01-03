@@ -28,6 +28,11 @@ abstract class AbstractInvoice implements InvoiceInterface
     protected $transactionDate = null;
 
     /**
+     * @var DateTime due date
+     */
+    protected $dueDate = null;
+
+    /**
      * @var SellerInterface
      */
     protected $seller = null;
@@ -94,6 +99,7 @@ abstract class AbstractInvoice implements InvoiceInterface
             throw new InvalidArgumentException('Language code should be ' . self::LANGUAGE_CODE_LENGTH . ' characters long');
         }
         $this->languageCode = $languageCode;
+        return $this;
     }
 
 
@@ -102,7 +108,7 @@ abstract class AbstractInvoice implements InvoiceInterface
      */
     public function hasLanguageCode() : bool
     {
-        return !is_null($this->languageCode);
+        return $this->languageCode !== '';
     }
 
 
@@ -112,7 +118,7 @@ abstract class AbstractInvoice implements InvoiceInterface
     public function getForeignCurrency(): string
     {
         if (is_null($this->foreignCurrency)) {
-            throw new Exception('Currency has not been set');
+            throw new Exception('Foreign currency has not been set');
         }
 
         return $this->foreignCurrency;
@@ -225,6 +231,27 @@ abstract class AbstractInvoice implements InvoiceInterface
             throw new Exception('Transaction date has not been set');
         }
         return $this->transactionDate;
+    }
+
+
+    /**
+     * Defaults to invoice date
+     * @return DateTime
+     * @throws Exception when trying to get a date that has not been set
+     */
+    public function getDueDate() : DateTime
+    {
+        return $this->dueDate ?? $this->getInvoiceDate();
+    }
+
+    /**
+     * @param null $dueDate
+     * @return AbstractInvoice
+     */
+    public function setDueDate(DateTime $dueDate)
+    {
+        $this->dueDate = $dueDate;
+        return $this;
     }
 
 
