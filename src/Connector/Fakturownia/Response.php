@@ -27,29 +27,20 @@ class Response extends AbstractConnectorResponse implements ConnectorResponseInt
         }
 
         if (isset($response['message'])) {
-            $this->statusString = $this->parseStatusString($response);
+            $this->statusString = $this->parseResponse($response);
         }
     }
 
 
-    protected function parseStatusString(array $response) : string
+    protected function parseResponse(array $response) : string
     {
         if (is_string($response['message'])) {
             return $response['message'];
         } elseif (is_array($response['message'])) {
-            $errorsAssoc = array_map(function($errors){
-               $errors = implode(", ", $errors);
-
-               return preg_replace("/^\s*-\s*/", '', $errors);
-            }, $response['message']);
-
-            $return = '';
-            foreach($errorsAssoc as $field => $errorsString) {
-                $return .= "{$field}: {$errorsString}\n";
-            }
-
-            return $return;
+            return json_encode($response['message']);
         }
+
+        throw new \Exception('Invalid API response: ', print_r($response, true));
     }
 
 
@@ -65,7 +56,7 @@ class Response extends AbstractConnectorResponse implements ConnectorResponseInt
 
     public function isSuccess() : bool
     {
-        return ($this->getStatusCode() === self::RETURN_CODE_OK);
+        return ($this->getStatusCode() === self::STATUS_CODE_OK);
     }
 
 }

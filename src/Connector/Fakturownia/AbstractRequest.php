@@ -106,23 +106,22 @@ abstract class AbstractRequest extends AbstractConnectorRequest
     {
         $buyer = $this->invoice->getBuyer();
 
-        $buyerNames = [
-            $buyer->getPersonName()
-        ];
-
-        if ($buyer->hasCompanyName()) {
-            $buyerNames[] = $buyer->getCompanyName();
-        }
-
-        return [
-            "buyer_name" => implode("\n", $buyerNames),
+        $buyerAssoc = [
             "buyer_tax_no" => $buyer->hasTaxIdentificationNumber() ? preg_replace('/[^0-9]/', '', $buyer->getTaxIdentificationNumber()) : '',
             "buyer_post_code" => $buyer->getPostCode(),
             "buyer_city" => $buyer->getCity(),
             "buyer_street" => $buyer->getStreet(),
             "buyer_country" => $buyer->getCountry(),
-            "buyer_company" => (int)($buyer->hasTaxIdentificationNumber() || $buyer->hasCompanyName()),
+            "buyer_company" => (int)$buyer->hasCompanyName(),
         ];
+
+        if ($buyer->hasCompanyName()) {
+            $buyerAssoc['buyer_name'] = $this->getBuyerCompanyNameWithPersonName($buyer);
+        } else {
+            $buyerAssoc = array_merge($buyerAssoc, $this->getBuyerFirstAndLastName($buyer));
+        }
+
+        return $buyerAssoc;
     }
 
 
@@ -133,6 +132,20 @@ abstract class AbstractRequest extends AbstractConnectorRequest
             'buyer_first_name' => array_shift($buyerNames),
             'buyer_last_name' => implode(' ', $buyerNames)
         ];
+    }
+
+
+    protected function getBuyerCompanyNameWithPersonName(BuyerInterface $buyer)
+    {
+        $buyerNames = [
+            $buyer->getPersonName()
+        ];
+
+        if ($buyer->hasCompanyName()) {
+            $buyerNames[] = $buyer->getCompanyName();
+        }
+
+        return implode("\n", $buyerNames);
     }
 
 
