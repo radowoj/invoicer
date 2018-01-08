@@ -6,6 +6,9 @@ namespace Radowoj\Invoicer\Connector;
 abstract class AbstractConnectorRequest implements ConnectorRequestInterface
 {
 
+    /**
+     * @var string|null Set in child class for specific request (or override getEndpoint() method)
+     */
     protected $endpoint = null;
 
 

@@ -216,8 +216,8 @@ class PositionTest extends TestCase
     public function testExceptionOnSettingAlreadySetPrice()
     {
         $position = new Position();
-        $position->setNetUnitPrice(12.34);
-        $position->setNetUnitPrice(12.34);
+        $position->setNetUnitPrice('12.34');
+        $position->setNetUnitPrice('12.34');
     }
 
     /**
