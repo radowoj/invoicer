@@ -3,8 +3,6 @@
 namespace Radowoj\Invoicer\Connector;
 
 
-use Radowoj\Invoicer\Connector\IFirma\ConnectorResponse;
-
 abstract class AbstractConnectorRequest implements ConnectorRequestInterface
 {
 

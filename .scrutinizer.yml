@@ -13,3 +13,7 @@ build:
                 coverage:
                     file: 'some-file'
                     format: 'clover'
+checks:
+    php:
+        code_rating: true
+        duplication: true

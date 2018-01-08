@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Radowoj\Invoicer\Tests\Invoice\Party;
 
 use PHPUnit\Framework\TestCase;
