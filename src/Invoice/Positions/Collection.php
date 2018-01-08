@@ -7,6 +7,7 @@ namespace Radowoj\Invoicer\Invoice\Positions;
 use ArrayAccess;
 use ArrayIterator;
 use Countable;
+use Exception;
 use IteratorAggregate;
 use Radowoj\Invoicer\Invoice\PositionInterface;
 use Radowoj\Invoicer\Invoice\Traits\StringFloat;
@@ -59,13 +60,13 @@ class Collection implements CollectionInterface, ArrayAccess, IteratorAggregate,
 
     public function offsetUnset($offset)
     {
-        throw new Exception("Positions collection is immutable");
+        throw new Exception("Direct offset setting/unsetting is not allowed");
     }
 
 
     public function offsetSet($offset, $value)
     {
-        throw new Exception("Positions collection is immutable");
+        throw new Exception("Direct offset setting/unsetting is not allowed, use Collection::add() instead");
     }
 
 
