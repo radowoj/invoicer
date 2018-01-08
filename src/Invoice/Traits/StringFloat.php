@@ -1,9 +1,8 @@
 <?php
-/**
- * @author Radosław Wojtyczka <radoslaw.wojtyczka@gmail.com>
- */
 
 namespace Radowoj\Invoicer\Invoice\Traits;
+
+use InvalidArgumentException;
 
 trait StringFloat
 {
@@ -23,7 +22,7 @@ trait StringFloat
      */
     protected function stringToFloat(string $string) : float
     {
-        if (!preg_match('/\d+(\.\d{2})?/', $string)) {
+        if (!preg_match('/^\d+(\.\d{2})?$/', $string)) {
             throw new InvalidArgumentException('Input string must be numeric (integer or decimal with two decimal digits)');
         }
 

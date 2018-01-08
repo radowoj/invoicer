@@ -1,7 +1,6 @@
 <?php
 
-namespace Radowoj\Invoicer\Tests;
-
+namespace Radowoj\Invoicer\Tests\Invoice;
 
 use PHPUnit\Exception;
 use PHPUnit\Framework\TestCase;
@@ -16,6 +15,17 @@ class PositionTest extends TestCase
         $position = new Position();
         $position->setNetUnitPrice('1.23');
         $this->assertEquals('1.23', $position->getNetUnitPrice());
+    }
+
+
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Input string must be numeric (integer or decimal with two decimal digits)
+     */
+    public function testExceptionOnInvalidNetUnitPriceFormat()
+    {
+        $position = new Position();
+        $position->setNetUnitPrice('1 apple');
     }
 
 
@@ -41,6 +51,17 @@ class PositionTest extends TestCase
         $position->setTaxRatePercent(23);
         $position->setGrossUnitPrice('2.97');
         $this->assertEquals('2.97', $position->getGrossUnitPrice(), 'Gross price fails for nonzero tax');
+    }
+
+
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Input string must be numeric (integer or decimal with two decimal digits)
+     */
+    public function testExceptionOnInvalidGrossUnitPriceFormat()
+    {
+        $position = new Position();
+        $position->setGrossUnitPrice('1 orange');
     }
 
 

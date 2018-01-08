@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: k0nik
- * Date: 2017-11-12
- * Time: 09:03
- */
 
-namespace Radowoj\Invoicer\Tests;
+namespace Radowoj\Invoicer\Tests\Invoice;
 
 use InvalidArgumentException;
 use PHPUnit\Exception;
