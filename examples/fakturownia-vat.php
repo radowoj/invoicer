@@ -12,7 +12,7 @@ use Radowoj\Invoicer\Invoice\Position;
 
 $seller = new Seller([
     'companyName' => 'Januszpol sp. z o.o.',
-    'taxIdentificationNumber' => '5824502734',
+    'taxIdentificationNumber' => 'PL5824502734',
     'street' => 'Asfaltowa 123/4',
     'postCode' => '12-345',
     'city' => 'Miasto',
@@ -21,7 +21,7 @@ $seller = new Seller([
 
 $buyer = new Buyer([
     'companyName' => 'Some Company',
-    'taxIdentificationNumber' => '5824502734',
+    'taxIdentificationNumber' => 'DE5824502734',
     'personName' => 'Gżdyl Grząślik',
     'street' => 'Brukowa 432/1',
     'postCode' => '54-321',
