@@ -8,19 +8,19 @@ use InvalidArgumentException;
 class AbstractParty implements PartyInterface
 {
 
-    protected $taxIdentificationNumber = '';
+    protected $taxIdentificationNumber = null;
 
-    protected $companyName = '';
+    protected $companyName = null;
 
-    protected $personName = '';
+    protected $personName = null;
 
-    protected $street = '';
+    protected $street = null;
 
-    protected $postCode = '';
+    protected $postCode = null;
 
-    protected $city = '';
+    protected $city = null;
 
-    protected $country = '';
+    protected $country = null;
 
     public function __construct(array $data = [])
     {
@@ -82,7 +82,7 @@ class AbstractParty implements PartyInterface
      */
     public function getTaxIdentificationNumber() : string
     {
-        if (!$this->taxIdentificationNumber) {
+        if (is_null($this->taxIdentificationNumber)) {
             throw new Exception('Tax identification number has not been set');
         }
         return $this->taxIdentificationNumber;
@@ -94,7 +94,7 @@ class AbstractParty implements PartyInterface
      */
     public function getCompanyName() : string
     {
-        if (!$this->companyName) {
+        if (is_null($this->companyName)) {
             throw new Exception('Company name has not been set');
         }
         return $this->companyName;
@@ -106,7 +106,7 @@ class AbstractParty implements PartyInterface
      */
     public function getPersonName() : string
     {
-        if (!$this->personName) {
+        if (is_null($this->personName)) {
             throw new Exception('Person name has not been set');
         }
         return $this->personName;
@@ -118,7 +118,7 @@ class AbstractParty implements PartyInterface
      */
     public function getStreet() : string
     {
-        if (!$this->street) {
+        if (is_null($this->street)) {
             throw new Exception('Street has not been set');
         }
         return $this->street;
@@ -130,7 +130,7 @@ class AbstractParty implements PartyInterface
      */
     public function getPostCode() : string
     {
-        if (!$this->postCode) {
+        if (is_null($this->postCode)) {
             throw new Exception('Post code has not been set');
         }
         return $this->postCode;
@@ -142,7 +142,7 @@ class AbstractParty implements PartyInterface
      */
     public function getCity() : string
     {
-        if (!$this->city) {
+        if (is_null($this->city)) {
             throw new Exception('City has not been set');
         }
         return $this->city;
@@ -154,7 +154,7 @@ class AbstractParty implements PartyInterface
      */
     public function getCountry() : string
     {
-        if (!$this->country) {
+        if (is_null($this->country)) {
             throw new Exception('Country has not been set');
         }
         return $this->country;
