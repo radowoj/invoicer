@@ -5,13 +5,21 @@ declare(strict_types=1);
 namespace Radowoj\Invoicer\Connector\Fakturownia;
 
 use Exception;
-use Radowoj\Invoicer\Connector\AbstractConnectorRequest;
+use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
+use Radowoj\Invoicer\Connector\Fakturownia\Response\IssueResponse;
+use Radowoj\Invoicer\Connector\Request as BaseAbstractRequest;
 use Radowoj\Invoicer\Connector\ConnectorResponseInterface;
 use Radowoj\Invoicer\Invoice\Party\BuyerInterface;
 use Radowoj\Invoicer\InvoiceInterface;
 
-abstract class AbstractRequest extends AbstractConnectorRequest
+abstract class Request extends BaseAbstractRequest
 {
+
+    /**
+     * @var Client
+     */
+    protected $client = null;
 
     /**
      * @var InvoiceInterface | null
@@ -60,7 +68,7 @@ abstract class AbstractRequest extends AbstractConnectorRequest
     /**
      * @param string $token
      */
-    public function setToken(string $token) : AbstractRequest
+    public function setToken(string $token) : Request
     {
         $this->token = $token;
         return $this;
@@ -80,9 +88,9 @@ abstract class AbstractRequest extends AbstractConnectorRequest
 
     /**
      * @param string $username
-     * @return AbstractRequest
+     * @return Request
      */
-    public function setUsername(string $username): AbstractRequest
+    public function setUsername(string $username): Request
     {
         $this->username = $username;
         return $this;
@@ -92,16 +100,14 @@ abstract class AbstractRequest extends AbstractConnectorRequest
     public function sendRequest(string $endpoint, $body) : ConnectorResponseInterface
     {
         $body['api_token'] = $this->getToken();
-        $json = json_encode($body);
-        $c = curl_init();
-        curl_setopt($c, CURLOPT_URL, $endpoint);
-        $head[] ='Accept: application/json';
-        $head[] ='Content-Type: application/json';
-        curl_setopt($c, CURLOPT_HTTPHEADER, $head);
-        curl_setopt($c, CURLOPT_POSTFIELDS, $json);
-        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-        $response = curl_exec($c);
-        return new Response(json_decode($response, true));
+
+        $response = $this->getClient()->post($endpoint, [
+            RequestOptions::JSON => $body
+        ]);
+
+        $responseJson = (string)$response->getBody();
+
+        return $this->createResponse(json_decode($responseJson, true));
     }
 
 
@@ -228,6 +234,30 @@ abstract class AbstractRequest extends AbstractConnectorRequest
 
         return $return;
     }
+
+
+    /**
+     * @return Client
+     */
+    public function getClient(): Client
+    {
+        if (!$this->client) {
+            $this->client = new Client();
+        }
+        return $this->client;
+    }
+
+
+    /**
+     * @param Client $client
+     * @return Request
+     */
+    public function setClient(Client $client): Request
+    {
+        $this->client = $client;
+        return $this;
+    }
+
 
 
 }

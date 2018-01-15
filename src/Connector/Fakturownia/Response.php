@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Radowoj\Invoicer\Connector\Fakturownia;
 
-
-use Radowoj\Invoicer\Connector\AbstractConnectorResponse;
+use Radowoj\Invoicer\Connector\Response as BaseAbstractResponse;
 use Radowoj\Invoicer\Connector\ConnectorResponseInterface;
 
-class Response extends AbstractConnectorResponse implements ConnectorResponseInterface
+abstract class Response extends BaseAbstractResponse implements ConnectorResponseInterface
 {
 
     const STATUS_CODE_OK = 0;

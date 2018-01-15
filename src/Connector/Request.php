@@ -3,7 +3,7 @@
 namespace Radowoj\Invoicer\Connector;
 
 
-abstract class AbstractConnectorRequest implements ConnectorRequestInterface
+abstract class Request implements ConnectorRequestInterface
 {
 
     /**
@@ -12,7 +12,7 @@ abstract class AbstractConnectorRequest implements ConnectorRequestInterface
     protected $endpoint = null;
 
 
-    public function send() : ConnectorResponseInterface
+    final public function send() : ConnectorResponseInterface
     {
         return $this->sendRequest(
             $this->getEndpoint(),
@@ -31,15 +31,17 @@ abstract class AbstractConnectorRequest implements ConnectorRequestInterface
 
 
     /**
-     * This will differ between connectors (soap/rest/etc)
-     * @return ConnectorResponseInterface
-     */
-    abstract protected function sendRequest(string $endpoint, $body) : ConnectorResponseInterface;
-
-
-    /**
+     * Request body
      * This will differ between connectors or even messages
      */
     abstract protected function getBody();
+
+
+    /**
+     * Creates our Response object based on array response from vendor
+     * @param array $response
+     * @return ConnectorResponseInterface
+     */
+    abstract protected function createResponse(array $response) : ConnectorResponseInterface;
 
 }

@@ -4,7 +4,7 @@
 namespace Radowoj\Invoicer\Connector;
 
 
-abstract class AbstractConnectorResponse implements ConnectorResponseInterface
+abstract class Response implements ConnectorResponseInterface
 {
 
     /**
@@ -47,6 +47,6 @@ abstract class AbstractConnectorResponse implements ConnectorResponseInterface
     }
 
 
-    abstract public function isSuccess() : bool;
+    abstract public function isSuccess(): bool;
 
 }

@@ -63,3 +63,4 @@ echo "Całkowita cena brutto: {$currencyInvoice->getInvoiceGrossTotal()}\n";
 echo "Kod odpowiedzi API: {$response->getStatusCode()}\n";
 echo "Odpowiedź API: {$response->getStatusString()}\n";
 echo "Identyfikator zasobu: {$response->getResourceIdentifier()}\n";
+echo "Numer wystawionej faktury: {$response->getInvoiceNumber()}\n";
