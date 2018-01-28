@@ -34,6 +34,9 @@ class Connector extends AbstractConnector
      */
     public function getToken(): string
     {
+        if ($this->token === '') {
+            throw new Exception('Token has not been set');
+        }
         return $this->token;
     }
 
