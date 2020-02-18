@@ -123,7 +123,7 @@ abstract class Request extends BaseAbstractRequest
         $seller = $this->invoice->getSeller();
         return [
             'seller_name' => $seller->getCompanyName(),
-            'seller_tax_no' => preg_replace('/[^A-Z0-9]/', '', $seller->getTaxIdentificationNumber()),
+            'seller_tax_no' => $seller->getTaxIdentificationNumber(),
             'seller_post_code' => $seller->getPostCode(),
             'seller_city' => $seller->getCity(),
             'seller_street' => $seller->getStreet(),
@@ -137,7 +137,7 @@ abstract class Request extends BaseAbstractRequest
         $buyer = $this->invoice->getBuyer();
 
         $buyerAssoc = [
-            "buyer_tax_no" => $buyer->hasTaxIdentificationNumber() ? preg_replace('/[^A-Z0-9]/', '', $buyer->getTaxIdentificationNumber()) : '',
+            "buyer_tax_no" => $buyer->hasTaxIdentificationNumber() ? $buyer->getTaxIdentificationNumber() : '',
             "buyer_post_code" => $buyer->getPostCode(),
             "buyer_city" => $buyer->getCity(),
             "buyer_street" => $buyer->getStreet(),

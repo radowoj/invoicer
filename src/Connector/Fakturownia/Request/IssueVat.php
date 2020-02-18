@@ -9,7 +9,7 @@ use Radowoj\Invoicer\Invoice\Vat;
 
 class IssueVat extends Request
 {
-    protected $endpoint = 'http://__USERNAME__.fakturownia.pl/invoices.json';
+    protected $endpoint = 'https://__USERNAME__.fakturownia.pl/invoices.json';
 
     protected $kind = 'vat';
 
