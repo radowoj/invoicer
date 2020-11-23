@@ -7,8 +7,10 @@ namespace Radowoj\Invoicer\Connector\Fakturownia;
 use Exception;
 use GuzzleHttp\Client;
 use Radowoj\Invoicer\AbstractInvoice;
-use Radowoj\Invoicer\Connector\Connector as AbstractConnector;
 use Radowoj\Invoicer\Connector\IssueResponseInterface;
+use Radowoj\Invoicer\Connector\ConnectorResponseInterface;
+use Radowoj\Invoicer\Connector\Connector as AbstractConnector;
+use Radowoj\Invoicer\Connector\Fakturownia\Request\DeleteInvoice;
 
 class Connector extends AbstractConnector
 {
@@ -93,6 +95,13 @@ class Connector extends AbstractConnector
         return $request->send();
     }
 
+    public function delete(int $idInvoice): ConnectorResponseInterface
+    {
+        $request = new DeleteInvoice($this->getToken(), $this->getUsername(), $this->getClient());
+
+        return $request->send($idInvoice);
+    }
+
 
     /**
      * @return Client
@@ -115,5 +124,4 @@ class Connector extends AbstractConnector
         $this->client = $client;
         return $this;
     }
-
 }
