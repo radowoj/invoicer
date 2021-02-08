@@ -68,7 +68,7 @@ abstract class Request extends BaseAbstractRequest
     /**
      * @param string $token
      */
-    public function setToken(string $token) : Request
+    public function setToken(string $token): Request
     {
         $this->token = $token;
         return $this;
@@ -97,7 +97,7 @@ abstract class Request extends BaseAbstractRequest
     }
 
 
-    public function sendRequest(string $endpoint, $body) : ConnectorResponseInterface
+    public function sendRequest(string $endpoint, $body): ConnectorResponseInterface
     {
         $body['api_token'] = $this->getToken();
 
@@ -184,7 +184,7 @@ abstract class Request extends BaseAbstractRequest
         $body = [
             'invoice' => [
                 "kind" => $this->getKind(),
-                'number' => null,
+                'number' => $this->invoice->getInvoiceNumber(),
                 "issue_date" => $this->invoice->getInvoiceDate()->format("Y-m-d"),
                 "place" => $this->invoice->getPlaceOfIssue(),
                 "sell_date" => $this->invoice->getTransactionDate()->format("Y-m-d"),
@@ -223,7 +223,7 @@ abstract class Request extends BaseAbstractRequest
     protected function getInvoicePositions()
     {
         $return = [];
-        foreach($this->invoice->getPositions() as $position) {
+        foreach ($this->invoice->getPositions() as $position) {
             $return[] = [
                 "name" => $position->getName(),
                 "tax" => $position->getTaxRatePercent(),
@@ -257,7 +257,4 @@ abstract class Request extends BaseAbstractRequest
         $this->client = $client;
         return $this;
     }
-
-
-
 }

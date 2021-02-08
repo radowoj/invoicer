@@ -157,8 +157,8 @@ class AbstractInvoiceTest extends TestCase
             ->getMock();
 
         $positions->expects($this->once())
-                ->method('add')
-                ->with($this->equalTo($position));
+            ->method('add')
+            ->with($this->equalTo($position));
 
         $object = $this->getMockForAbstractClass(AbstractInvoice::class);
         $object->setPositions($positions);
@@ -408,5 +408,11 @@ class AbstractInvoiceTest extends TestCase
         $this->assertInstanceOf('Radowoj\Invoicer\InvoiceInterface', $returnValue, 'setDescription() must return $this');
     }
 
+    public function testInvoiceNumber()
+    {
+        $object = ($this->getMockForAbstractClass(AbstractInvoice::class))
+            ->setInvoiceNumber('11/11/2021');
 
+        $this->assertEquals('11/11/2021', $object->getInvoiceNumber());
+    }
 }

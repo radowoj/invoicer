@@ -77,6 +77,10 @@ abstract class AbstractInvoice implements InvoiceInterface
      */
     protected $description = '';
 
+    /**
+     * @var string
+     */
+    protected $invoiceNumber = null;
 
     /**
      * @return string
@@ -106,7 +110,7 @@ abstract class AbstractInvoice implements InvoiceInterface
     /**
      * @return bool
      */
-    public function hasLanguageCode() : bool
+    public function hasLanguageCode(): bool
     {
         return $this->languageCode !== '';
     }
@@ -128,7 +132,7 @@ abstract class AbstractInvoice implements InvoiceInterface
     /**
      * @param string
      */
-    public function setForeignCurrency(string $foreignCurrency) : InvoiceInterface
+    public function setForeignCurrency(string $foreignCurrency): InvoiceInterface
     {
         $this->foreignCurrency = $foreignCurrency;
         return $this;
@@ -175,7 +179,7 @@ abstract class AbstractInvoice implements InvoiceInterface
      * @param string $placeOfIssue
      * @return InvoiceInterface
      */
-    public function setPlaceOfIssue(string $placeOfIssue) : InvoiceInterface
+    public function setPlaceOfIssue(string $placeOfIssue): InvoiceInterface
     {
         $this->placeOfIssue = $placeOfIssue;
         return $this;
@@ -187,7 +191,7 @@ abstract class AbstractInvoice implements InvoiceInterface
      * @return InvoiceInterface
      * @throws InvalidArgumentException when $invoiceDate provided is invalid
      */
-    public function setInvoiceDate(DateTime $invoiceDate) : InvoiceInterface
+    public function setInvoiceDate(DateTime $invoiceDate): InvoiceInterface
     {
         $this->invoiceDate = $invoiceDate;
         return $this;
@@ -199,7 +203,7 @@ abstract class AbstractInvoice implements InvoiceInterface
      * @return string issue date of the invoice
      * @throws Exception when trying to get a date that has not been set earlier
      */
-    public function getInvoiceDate() : DateTime
+    public function getInvoiceDate(): DateTime
     {
         if (is_null($this->invoiceDate)) {
             throw new Exception("Invoice date has not been set");
@@ -213,7 +217,7 @@ abstract class AbstractInvoice implements InvoiceInterface
      * @return InvoiceInterface
      * @throws Exception when transactionDate provided is invalid
      */
-    public function setTransactionDate(DateTime $transactionDate) : InvoiceInterface
+    public function setTransactionDate(DateTime $transactionDate): InvoiceInterface
     {
         $this->transactionDate = $transactionDate;
         return $this;
@@ -225,7 +229,7 @@ abstract class AbstractInvoice implements InvoiceInterface
      * @return string date of transaction related to this invoice
      * @throws Exception when trying to get a date that has not been set earlier
      */
-    public function getTransactionDate() : DateTime
+    public function getTransactionDate(): DateTime
     {
         if (is_null($this->transactionDate)) {
             throw new Exception('Transaction date has not been set');
@@ -239,7 +243,7 @@ abstract class AbstractInvoice implements InvoiceInterface
      * @return DateTime
      * @throws Exception when trying to get a date that has not been set
      */
-    public function getDueDate() : DateTime
+    public function getDueDate(): DateTime
     {
         return $this->dueDate ?? $this->getInvoiceDate();
     }
@@ -259,7 +263,7 @@ abstract class AbstractInvoice implements InvoiceInterface
      * @param SellerInterface $seller
      * @return InvoiceInterface fluent interface
      */
-    public function setSeller(SellerInterface $seller) : InvoiceInterface
+    public function setSeller(SellerInterface $seller): InvoiceInterface
     {
         $this->seller = $seller;
         return $this;
@@ -269,7 +273,7 @@ abstract class AbstractInvoice implements InvoiceInterface
     /**
      * @return SellerInterface
      */
-    public function getSeller() : SellerInterface
+    public function getSeller(): SellerInterface
     {
         if (is_null($this->seller)) {
             throw new Exception('Seller has not been set');
@@ -283,7 +287,7 @@ abstract class AbstractInvoice implements InvoiceInterface
      * @param BuyerInterface $buyer
      * @return InvoiceInterface fluent interface
      */
-    public function setBuyer(BuyerInterface $buyer) : InvoiceInterface
+    public function setBuyer(BuyerInterface $buyer): InvoiceInterface
     {
         $this->buyer = $buyer;
         return $this;
@@ -293,7 +297,7 @@ abstract class AbstractInvoice implements InvoiceInterface
     /**
      * @return BuyerInterface
      */
-    public function getBuyer() : BuyerInterface
+    public function getBuyer(): BuyerInterface
     {
         if (is_null($this->buyer)) {
             throw new Exception('Buyer has not been set');
@@ -307,7 +311,7 @@ abstract class AbstractInvoice implements InvoiceInterface
      * @param Collection $positions
      * @return InvoiceInterface
      */
-    public function setPositions(Collection $positions) : InvoiceInterface
+    public function setPositions(Collection $positions): InvoiceInterface
     {
         $this->positions = $positions;
         return $this;
@@ -317,7 +321,7 @@ abstract class AbstractInvoice implements InvoiceInterface
     /**
      * @return CollectionInterface
      */
-    public function getPositions() : CollectionInterface
+    public function getPositions(): CollectionInterface
     {
         $this->assertPositionsCollectionIsSet();
         return $this->positions;
@@ -328,7 +332,7 @@ abstract class AbstractInvoice implements InvoiceInterface
      * @param PositionInterface $position
      * @return InvoiceInterface fluent interface
      */
-    public function addPosition(PositionInterface $position) : InvoiceInterface
+    public function addPosition(PositionInterface $position): InvoiceInterface
     {
         $this->assertPositionsCollectionIsSet();
         $this->positions->add($position);
@@ -339,7 +343,7 @@ abstract class AbstractInvoice implements InvoiceInterface
     /**
      * @return string (decimal) net invoice total
      */
-    public function getInvoiceNetTotal() : string
+    public function getInvoiceNetTotal(): string
     {
         $this->assertPositionsCollectionIsSet();
         return $this->positions->getNetTotal();
@@ -349,7 +353,7 @@ abstract class AbstractInvoice implements InvoiceInterface
     /**
      * @return string (decimal) net invoice total
      */
-    public function getInvoiceGrossTotal() : string
+    public function getInvoiceGrossTotal(): string
     {
         $this->assertPositionsCollectionIsSet();
         return $this->positions->getGrossTotal();
@@ -436,5 +440,22 @@ abstract class AbstractInvoice implements InvoiceInterface
         return $this;
     }
 
-}
+    /**
+     * @return string
+     */
+    public function getInvoiceNumber(): ?string
+    {
+        return $this->invoiceNumber;
+    }
 
+
+    /**
+     * @param string $description
+     * @return AbstractInvoice
+     */
+    public function setInvoiceNumber(?string $invoiceNumber): InvoiceInterface
+    {
+        $this->invoiceNumber = $invoiceNumber;
+        return $this;
+    }
+}

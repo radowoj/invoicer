@@ -11,8 +11,14 @@ use Radowoj\Invoicer\Invoice\Positions\Collection;
 class Vat extends AbstractInvoice
 {
 
-    public function __construct(SellerInterface $seller, BuyerInterface $buyer, Collection $positions, DateTime $invoiceDate = null, DateTime $transactionDate = null)
-    {
+    public function __construct(
+        SellerInterface $seller,
+        BuyerInterface $buyer,
+        Collection $positions,
+        DateTime $invoiceDate = null,
+        DateTime $transactionDate = null,
+        $invoiceNumber = null
+    ) {
         if (is_null($invoiceDate)) {
             $invoiceDate = new DateTime('now');
         }
@@ -26,7 +32,6 @@ class Vat extends AbstractInvoice
         $this->setPositions($positions);
         $this->setInvoiceDate($invoiceDate);
         $this->setTransactionDate($transactionDate);
+        $this->setInvoiceNumber($invoiceNumber);
     }
-
-
 }

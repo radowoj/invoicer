@@ -10,12 +10,27 @@ use Radowoj\Invoicer\Invoice\Positions\Collection;
 
 class Margin extends AbstractInvoice
 {
-    public function __construct(SellerInterface $seller, BuyerInterface $buyer, Collection $positions)
-    {
+    public function __construct(
+        SellerInterface $seller,
+        BuyerInterface $buyer,
+        Collection $positions,
+        DateTime $invoiceDate = null,
+        DateTime $transactionDate = null,
+        string $invoiceNumber = null
+    ) {
+        if (is_null($invoiceDate)) {
+            $invoiceDate = new DateTime('now');
+        }
+
+        if (is_null($transactionDate)) {
+            $transactionDate = new DateTime('now');
+        }
+
         $this->setSeller($seller);
         $this->setBuyer($buyer);
         $this->setPositions($positions);
-        $this->setInvoiceDate(new DateTime('now'));
-        $this->setTransactionDate(new DateTime('now'));
+        $this->setInvoiceDate($invoiceDate);
+        $this->setTransactionDate($transactionDate);
+        $this->setInvoiceNumber($invoiceNumber);
     }
 }

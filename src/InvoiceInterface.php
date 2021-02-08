@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author Radosław Wojtyczka <radoslaw.wojtyczka@gmail.com>
  */
@@ -40,6 +41,10 @@ interface InvoiceInterface
 
     public function getTransactionDate(): DateTime;
 
+    public function getDueDate(): DateTime;
+
+    public function setDueDate(DateTime $dueDate);
+
     public function setSeller(SellerInterface $seller): InvoiceInterface;
 
     public function getSeller(): SellerInterface;
@@ -71,4 +76,8 @@ interface InvoiceInterface
     public function getDescription(): string;
 
     public function setDescription(string $description): InvoiceInterface;
+
+    public function getInvoiceNumber(): ?string;
+
+    public function setInvoiceNumber(?string $invoiceNumber): InvoiceInterface;
 }
