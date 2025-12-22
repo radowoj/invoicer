@@ -27,7 +27,7 @@ class AbstractPartyTest extends TestCase
         'country' => 'Some country'
     ];
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->object = $this->getMockForAbstractClass(
             AbstractParty::class,
@@ -38,12 +38,11 @@ class AbstractPartyTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Missing properties
-     */
     public function testFromEmptyArray()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Missing properties');
+        
         $this->object->fromArray([]);
     }
 
@@ -97,72 +96,65 @@ class AbstractPartyTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Tax identification number has not been set
-     */
     public function testExceptionOnGettingNotSetTaxIdentificationNumber()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Tax identification number has not been set');
+        
         $this->object->getTaxIdentificationNumber();
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Company name has not been set
-     */
     public function testExceptionOnGettingNotSetCompanyName()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Company name has not been set');
+        
         $this->object->getCompanyName();
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Person name has not been set
-     */
     public function testExceptionOnGettingNotSetPersonName()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Person name has not been set');
+        
         $this->object->getPersonName();
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Street has not been set
-     */
     public function testExceptionOnGettingNotSetStreet()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Street has not been set');
+        
         $this->object->getStreet();
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Post code has not been set
-     */
     public function testExceptionOnGettingNotSetPostCode()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Post code has not been set');
+        
         $this->object->getPostCode();
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage City has not been set
-     */
     public function testExceptionOnGettingNotSetCity()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('City has not been set');
+        
         $this->object->getCity();
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Country has not been set
-     */
     public function testExceptionOnGettingNotSetCountry()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Country has not been set');
+        
         $this->object->getCountry();
     }
 
@@ -273,7 +265,7 @@ class AbstractPartyTest extends TestCase
             [$this->testProperties]
         );
 
-        $this->assertTrue(true, $this->object->hasTaxIdentificationNumber());
+        $this->assertEquals(true, $this->object->hasTaxIdentificationNumber());
     }
 
 
@@ -287,7 +279,7 @@ class AbstractPartyTest extends TestCase
             [$testPropertiesWithoutTaxId]
         );
 
-        $this->assertFalse(false, $this->object->hasTaxIdentificationNumber());
+        $this->assertEquals(false, $this->object->hasTaxIdentificationNumber());
     }
 
     public function testPositiveHasCompanyName()
@@ -297,7 +289,7 @@ class AbstractPartyTest extends TestCase
             [$this->testProperties]
         );
 
-        $this->assertTrue(true, $this->object->hasCompanyName());
+        $this->assertEquals(true, $this->object->hasCompanyName());
     }
 
 
@@ -311,7 +303,7 @@ class AbstractPartyTest extends TestCase
             [$testPropertiesWithoutCompanyName]
         );
 
-        $this->assertFalse(false, $this->object->hasCompanyName());
+        $this->assertEquals(false, $this->object->hasCompanyName());
     }
 
 

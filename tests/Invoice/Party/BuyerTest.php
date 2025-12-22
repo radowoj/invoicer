@@ -24,12 +24,11 @@ class BuyerTest extends TestCase
     }
 
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Missing properties: personName, street, postCode, city, country
-     */
     public function testPersonNameIsRequired()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Missing properties: personName, street, postCode, city, country');
+        
         new Buyer([]);
     }
 

@@ -25,12 +25,11 @@ class SellerTest extends TestCase
     }
 
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Missing properties: taxIdentificationNumber, companyName, street, postCode, city, country
-     */
     public function testPersonNameIsRequired()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Missing properties: taxIdentificationNumber, companyName, street, postCode, city, country');
+        
         new Seller([]);
     }
 

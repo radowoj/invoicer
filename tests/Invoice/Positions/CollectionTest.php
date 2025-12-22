@@ -45,7 +45,7 @@ class CollectionTest extends TestCase
 
         $firstPositionMock->expects($this->once())
             ->method('getNetTotalPrice')
-            ->willReturn(1.00);
+            ->willReturn('1.00');
 
         $secondPositionMock = $this->getMockBuilder(Position::class)
             ->setMethods(['getNetTotalPrice'])
@@ -53,7 +53,7 @@ class CollectionTest extends TestCase
 
         $secondPositionMock->expects($this->once())
             ->method('getNetTotalPrice')
-            ->willReturn(2.00);
+            ->willReturn('2.00');
 
         $collection->add($firstPositionMock);
         $collection->add($secondPositionMock);
@@ -72,7 +72,7 @@ class CollectionTest extends TestCase
 
         $firstPositionMock->expects($this->once())
             ->method('getGrossTotalPrice')
-            ->willReturn(1.00);
+            ->willReturn('1.00');
 
         $secondPositionMock = $this->getMockBuilder(Position::class)
             ->setMethods(['getGrossTotalPrice'])
@@ -80,7 +80,7 @@ class CollectionTest extends TestCase
 
         $secondPositionMock->expects($this->once())
             ->method('getGrossTotalPrice')
-            ->willReturn(2.00);
+            ->willReturn('2.00');
 
         $collection->add($firstPositionMock);
         $collection->add($secondPositionMock);
@@ -99,23 +99,21 @@ class CollectionTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Direct offset setting/unsetting is not allowed
-     */
     public function testExceptionOnOffsetSet()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Direct offset setting/unsetting is not allowed');
+        
         $collection = new Collection();
         $collection[0] = 'setting an offset directly should not be allowed';
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Direct offset setting/unsetting is not allowed
-     */
     public function testExceptionOnOffsetUnset()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Direct offset setting/unsetting is not allowed');
+        
         $collection = new Collection();
         unset($collection[0]);
     }

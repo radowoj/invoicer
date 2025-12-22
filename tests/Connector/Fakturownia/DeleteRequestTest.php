@@ -19,7 +19,7 @@ class DeleteRequestTest extends TestCase
     protected $connector = null;
 
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->connector = new Connector();
         $this->connector->setToken($this->token);

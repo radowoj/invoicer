@@ -30,12 +30,12 @@ class AbstractInvoiceTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Invoice date has not been set
-     */
     public function testExceptionOnGettingNotSetInvoiceDate()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Invoice date has not been set');
+
+        
         $object = $this->getMockForAbstractClass(AbstractInvoice::class);
         $object->getInvoiceDate();
     }
@@ -54,12 +54,11 @@ class AbstractInvoiceTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Transaction date has not been set
-     */
     public function testExceptionOnGettingNotSetTransactionDate()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Transaction date has not been set');
+
         $object = $this->getMockForAbstractClass(AbstractInvoice::class);
         $object->getTransactionDate();
     }
@@ -77,12 +76,11 @@ class AbstractInvoiceTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Buyer has not been set
-     */
     public function testExceptionOnGettingNotSetBuyer()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Buyer has not been set');
+        
         $object = $this->getMockForAbstractClass(AbstractInvoice::class);
         $object->getBuyer();
     }
@@ -100,12 +98,11 @@ class AbstractInvoiceTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Seller has not been set
-     */
     public function testExceptionOnGettingNotSetSeller()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Seller has not been set');
+        
         $object = $this->getMockForAbstractClass(AbstractInvoice::class);
         $object->getSeller();
     }
@@ -122,12 +119,11 @@ class AbstractInvoiceTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Invoice positions collection has not been set
-     */
     public function testExceptionWhenAddingPositionWithoutPositionsSet()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Invoice positions collection has not been set');
+        
         $position = $this->getMockBuilder(Position::class)
             ->getMock();
 
@@ -136,12 +132,11 @@ class AbstractInvoiceTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Invoice positions collection has not been set
-     */
     public function testExceptionWhenGettingPositionsWithoutPositionsSet()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Invoice positions collection has not been set');
+        
         $object = $this->getMockForAbstractClass(AbstractInvoice::class);
         $object->getPositions();
     }
@@ -210,23 +205,21 @@ class AbstractInvoiceTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Place of issue has not been set
-     */
     public function testExceptionOnGettingNotSetPlaceOfIssue()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Place of issue has not been set');
+        
         $object = $this->getMockForAbstractClass(AbstractInvoice::class);
         $object->getPlaceOfIssue();
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Invoice date has not been set
-     */
     public function testExceptionOnGettingDueDateWithoutTransactionDate()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Invoice date has not been set');
+        
         $object = $this->getMockForAbstractClass(AbstractInvoice::class);
         $object->getDueDate();
     }
@@ -275,12 +268,11 @@ class AbstractInvoiceTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Exchange rate has not been set
-     */
     public function testExceptionOnGettingNotSetExchangeRate()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Exchange rate has not been set');
+        
         $object = $this->getMockForAbstractClass(AbstractInvoice::class);
         $object->getExchangeRate();
     }
@@ -299,23 +291,21 @@ class AbstractInvoiceTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Language code has not been set
-     */
     public function testExceptionOnGettingNotSetLanguageCode()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Language code has not been set');
+        
         $object = $this->getMockForAbstractClass(AbstractInvoice::class);
         $object->getLanguageCode();
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Language code should be 2 characters long
-     */
     public function testExceptionOnInvalidLanguageCode()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Language code should be 2 characters long');
+        
         $object = $this->getMockForAbstractClass(AbstractInvoice::class);
         $object->setLanguageCode('Too long value for a language code');
     }
@@ -344,12 +334,11 @@ class AbstractInvoiceTest extends TestCase
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Currency has not been set
-     */
     public function testExceptionOnGettingNotSetCurrency()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Currency has not been set');
+        
         $object = $this->getMockForAbstractClass(AbstractInvoice::class);
         $object->getCurrency();
     }
@@ -375,12 +364,12 @@ class AbstractInvoiceTest extends TestCase
         $this->assertInstanceOf('Radowoj\Invoicer\InvoiceInterface', $returnValue, 'setForeignCurrency() must return $this');
     }
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Foreign currency has not been set
-     */
+
     public function testExceptionOnGettingNotSetForeignCurrency()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Foreign currency has not been set');
+        
         $object = $this->getMockForAbstractClass(AbstractInvoice::class);
         $object->getForeignCurrency();
     }

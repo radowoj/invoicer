@@ -46,37 +46,37 @@ class Collection implements CollectionInterface, ArrayAccess, IteratorAggregate,
     }
 
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return array_key_exists($offset, $this->positions);
     }
 
 
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->positions[$offset];
     }
 
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw new Exception("Direct offset setting/unsetting is not allowed");
     }
 
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         throw new Exception("Direct offset setting/unsetting is not allowed, use Collection::add() instead");
     }
 
 
-    public function getIterator()
+    public function getIterator(): \Iterator
     {
         return new ArrayIterator($this->positions);
     }
 
 
-    public function count()
+    public function count(): int
     {
         return count($this->positions);
     }

@@ -7,7 +7,6 @@ namespace Radowoj\Invoicer\Connector\Fakturownia;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Radowoj\Invoicer\Connector\Fakturownia\Response\IssueResponse;
 use Radowoj\Invoicer\Connector\Request as BaseAbstractRequest;
 use Radowoj\Invoicer\Connector\ConnectorResponseInterface;
 use Radowoj\Invoicer\Invoice\Party\BuyerInterface;
@@ -211,6 +210,10 @@ abstract class Request extends BaseAbstractRequest
 
         if ($this->invoice->hasLanguageCode()) {
             $body['invoice']['lang'] = $this->invoice->getLanguageCode();
+        }
+
+        if ($this->invoice->getProcedureVatMargin()) {
+            $body['invoice']['procedure_vat_margin'] = $this->invoice->getProcedureVatMargin();
         }
 
         $body['invoice'] = array_merge($body['invoice'], $this->getSeller());

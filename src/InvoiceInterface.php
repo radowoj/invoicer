@@ -43,7 +43,7 @@ interface InvoiceInterface
 
     public function getDueDate(): DateTime;
 
-    public function setDueDate(DateTime $dueDate);
+    public function setDueDate(DateTime $dueDate): InvoiceInterface;
 
     public function setSeller(SellerInterface $seller): InvoiceInterface;
 
@@ -80,4 +80,8 @@ interface InvoiceInterface
     public function getInvoiceNumber(): ?string;
 
     public function setInvoiceNumber(?string $invoiceNumber): InvoiceInterface;
+    
+    public function getProcedureVatMargin(): ?string;
+
+    public function setProcedureVatMargin(string $procedureVatMargin): InvoiceInterface;
 }

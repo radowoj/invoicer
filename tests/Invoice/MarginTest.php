@@ -19,7 +19,15 @@ class MarginTest extends TestCase
         $sellerMock = $this->getMockBuilder(Seller::class)->getMock();
         $buyerMock = $this->getMockBuilder(Buyer::class)->getMock();
         $positionsMock = $this->getMockBuilder(Collection::class)->getMock();
-        $object = new Margin($sellerMock, $buyerMock, $positionsMock);
+        $object = new Margin(
+            $sellerMock,
+            $buyerMock,
+            $positionsMock,
+            null,
+            null,
+            Margin::PROCEDURE_VAT_MARGIN_COLLECTIBLES,
+            'FV/2024/01/001'
+        );
 
         $this->assertInstanceOf(AbstractInvoice::class, $object, 'Margin invoice must be an invoice');
     }

@@ -3,7 +3,7 @@
     "description": "Abstraction layer for invoices",
     "type": "library",
     "require-dev": {
-        "phpunit/phpunit": "^6.4"
+        "phpunit/phpunit": "^9.6"
     },
     "license": "MIT",
     "authors": [
@@ -18,7 +18,7 @@
         }
     },
     "require": {
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.5"
     },
     "config": {
         "sort-packages": true

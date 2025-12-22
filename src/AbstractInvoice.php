@@ -83,6 +83,11 @@ abstract class AbstractInvoice implements InvoiceInterface
     protected $invoiceNumber = null;
 
     /**
+     * @var string
+     */
+    protected $procedureVatMargin = null;
+
+    /**
      * @return string
      */
     public function getLanguageCode(): string
@@ -252,7 +257,7 @@ abstract class AbstractInvoice implements InvoiceInterface
      * @param null $dueDate
      * @return AbstractInvoice
      */
-    public function setDueDate(DateTime $dueDate)
+    public function setDueDate(DateTime $dueDate): InvoiceInterface
     {
         $this->dueDate = $dueDate;
         return $this;
@@ -448,7 +453,6 @@ abstract class AbstractInvoice implements InvoiceInterface
         return $this->invoiceNumber;
     }
 
-
     /**
      * @param string $description
      * @return AbstractInvoice
@@ -456,6 +460,26 @@ abstract class AbstractInvoice implements InvoiceInterface
     public function setInvoiceNumber(?string $invoiceNumber): InvoiceInterface
     {
         $this->invoiceNumber = $invoiceNumber;
+        return $this;
+    }
+
+
+    /**
+     * @return string|null
+     */
+    public function getProcedureVatMargin(): ?string
+    {
+        return $this->procedureVatMargin;
+    }
+
+
+    /**
+     * @param string $procedureVatMargin
+     * @return AbstractInvoice
+     */
+    public function setProcedureVatMargin(string $procedureVatMargin): InvoiceInterface
+    {
+        $this->procedureVatMargin = $procedureVatMargin;
         return $this;
     }
 }

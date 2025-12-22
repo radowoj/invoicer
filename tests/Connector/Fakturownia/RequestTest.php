@@ -19,18 +19,17 @@ class RequestTest extends TestCase
     protected $connector = null;
 
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->connector = new Connector();
     }
 
 
-    /**
-     * @expectedException \Exception
-     * @expectedExceptionMessage Token has not been set
-     */
     public function testExceptionOnGettingNotSetToken()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Token has not been set');
+        
         $this->connector->getToken();
     }
 
@@ -41,12 +40,12 @@ class RequestTest extends TestCase
         $this->assertEquals($this->token, $this->connector->getToken());
     }
 
-    /**
-     * @expectedException \Exception
-     * @expectedExceptionMessage Username has not been set
-     */
+
     public function testExceptionOnGettingNotSetUsername()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Username has not been set');
+        
         $this->connector->getUsername();
     }
 

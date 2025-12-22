@@ -20,23 +20,21 @@ class PositionTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Input string must be numeric (integer or decimal with two decimal digits)
-     */
     public function testExceptionOnInvalidNetUnitPriceFormat()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Input string must be numeric (integer or decimal with two decimal digits)');
+        
         $position = new Position();
         $position->setNetUnitPrice('1 apple');
     }
 
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Tax has not been set
-     */
     public function testExceptionOnSettingGrossPriceWithoutTax()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Tax has not been set');
+        
         $position = new Position();
         $position->setGrossUnitPrice('1.23');
     }
@@ -62,6 +60,9 @@ class PositionTest extends TestCase
      */
     public function testExceptionOnInvalidGrossUnitPriceFormat()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Input string must be numeric (integer or decimal with two decimal digits)');
+        
         $position = new Position();
         $position->setGrossUnitPrice('1 orange');
     }
@@ -73,7 +74,6 @@ class PositionTest extends TestCase
         $position->setTaxRatePercent(23.0);
         $this->assertEquals(23.0, $position->getTaxRatePercent());
     }
-
 
 
     /**
@@ -182,12 +182,11 @@ class PositionTest extends TestCase
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Tax rate percent must be zero or greater
-     */
     public function testExceptionOnNegativeTaxRatePercent()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Tax rate percent must be zero or greater');
+        
         $position = new Position();
         $position->setTaxRatePercent(-1);
     }
@@ -215,6 +214,9 @@ class PositionTest extends TestCase
      */
     public function testExceptionOnSettingAlreadySetPrice()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Price has already been set');
+        
         $position = new Position();
         $position->setNetUnitPrice('12.34');
         $position->setNetUnitPrice('12.34');
@@ -226,6 +228,9 @@ class PositionTest extends TestCase
      */
     public function testExceptionOnGettingNotSetPrice()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Price has not been set');
+        
         $position = new Position();
         $position->getNetUnitPrice();
     }
